@@ -55,16 +55,16 @@ WHERE location = 'CA';
 SELECT DISTINCT company, 
 	AVG(star_rating) as avg_rating
 FROM data_analyst_jobs
-GROUP BY company, review_count
-HAVING review_count > 5000;
---40
+WHERE review_count > 5000
+GROUP BY company;
+--41, including 1 null
 
 --Q10.
 SELECT DISTINCT company, 
 	AVG(star_rating) as avg_rating
 FROM data_analyst_jobs
-GROUP BY company, review_count
-HAVING review_count > 5000
+WHERE review_count > 5000
+GROUP BY company
 ORDER BY AVG(star_rating) DESC;
 -- American Express, 4.20
 
@@ -84,12 +84,11 @@ WHERE title NOT ILIKE '%Analyst%'
 --BONUS
 SELECT domain, COUNT(*)
 FROM data_analyst_jobs
-GROUP BY domain, skill, days_since_posting
-HAVING skill ILIKE '%SQL%'
+WHERE skill ILIKE '%SQL%'
 	AND days_since_posting > 21
 	AND domain IS NOT NULL
-ORDER BY COUNT(*) DESC;
--- 
-
-
-
+GROUP BY domain
+ORDER BY COUNT(*) DESC
+LIMIT 4;
+-- Internet and Software, Banks and Financial Serrvices, Consulting and Business Services, Health Care
+-- 62, 61, 57, 52
